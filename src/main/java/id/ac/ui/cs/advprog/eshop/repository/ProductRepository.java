@@ -7,12 +7,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-// Inspired by Acid
-
 @Repository
 public class ProductRepository {
     private List<Product> productData = new ArrayList<>();
-
 
     public Product create(Product product) {
         productData.add(product);
@@ -46,6 +43,18 @@ public class ProductRepository {
         }
 
         return null;
+    }
+
+    public void deleteById(String id) {
+        if (id == null || productData == null) {
+            return;
+        }
+
+        for (int i = 0; i < productData.size(); i++) {
+            if (productData.get(i).getProductId().equals(id)) {
+                productData.remove(i); return;
+            }
+        }
     }
 
 

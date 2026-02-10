@@ -45,7 +45,7 @@ public class ProductController {
         Product product = service.findProductById(id);
 
         if (product == null) {
-            return "redirect:list";
+            return "redirect:/product/list";
         }
 
         model.addAttribute("product", product);
@@ -55,6 +55,12 @@ public class ProductController {
     @PostMapping("/edit")
     public String editProductPost(@ModelAttribute Product product) {
         service.update(product);
-        return "redirect:list";
+        return "redirect:/product/list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable String id) {
+        service.deleteById(id);
+        return "redirect:/product/list";
     }
 }
