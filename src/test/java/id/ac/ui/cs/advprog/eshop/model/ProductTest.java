@@ -17,13 +17,17 @@ public class ProductTest {
     @Test
     void testGetProductId() {
         assertEquals("eb558e9f-eak-mantap-gaes-71af6af63bd6", this.product.getProductId());
+        assertNotEquals("eb558e9f-eak-mantap-gaes-begitulah", this.product.getProductId());
     }
     @Test
     void testGetProductName() {
         assertEquals("Ayam Geprek Silvanna", this.product.getProductName());
+        assertNotEquals("Ayam", this.product.getProductName());
     }
     @Test
     void testGetProductQuantity() {
         assertEquals(500, this.product.getProductQuantity());
+        assertNotEquals(250, this.product.getProductQuantity());
     }
+
 }
