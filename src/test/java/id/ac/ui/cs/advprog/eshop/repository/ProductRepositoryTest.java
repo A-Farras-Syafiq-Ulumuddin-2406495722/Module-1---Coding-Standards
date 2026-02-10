@@ -68,4 +68,42 @@ public class ProductRepositoryTest {
 
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testEditProduct() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        assertEquals("Sampo Cap Bambang", product.getProductId());
+
+        product.setProductName("Sigma Cap Alpha");
+        productRepository.update(product);
+
+        Product updatedProduct = productRepository.findProductById(product.getProductId());
+
+        assertEquals("Sigma Cap Alpha", updatedProduct.getProductName());
+        assertNotEquals("Sampo Cap Bambang", updatedProduct.getProductName());
+    }
+
+    @Test
+    void testDeleteProduct() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product getProductFromRepo = productRepository.findProductById(product.getProductId());
+
+        assertNotNull(getProductFromRepo);
+
+        productRepository.deleteById(product.getProductId());
+
+        getProductFromRepo = productRepository.findProductById(product.getProductId());
+
+        assertNull(getProductFromRepo);
+    }
 }
