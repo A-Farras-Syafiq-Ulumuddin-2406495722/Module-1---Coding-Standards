@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+// Inspired by Acid
+
 @Repository
 public class ProductRepository {
     private List<Product> productData = new ArrayList<>();
+
 
     public Product create(Product product) {
         productData.add(product);
@@ -19,4 +22,31 @@ public class ProductRepository {
     public Iterator<Product> findAll() {
         return productData.iterator();
     }
+
+    public Product findProductById(String id) {
+        if (productData == null || id == null) {
+            return null;
+        }
+
+        for (Product product : productData) {
+            if (product.getProductId().equals(id)) {
+                return product;
+            }
+        }
+
+        return null;
+    }
+
+    public Product update(Product updatedProduct) {
+        for (int i = 0; i < productData.size(); i++) {
+            if (productData.get(i).getProductId().equals(updatedProduct.getProductId())) {
+                productData.set(i, updatedProduct);
+                return updatedProduct;
+            }
+        }
+
+        return null;
+    }
+
+
 }
