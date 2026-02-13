@@ -77,7 +77,7 @@ public class ProductRepositoryTest {
         product.setProductQuantity(100);
         productRepository.create(product);
 
-        assertEquals("Sampo Cap Bambang", product.getProductId());
+        assertEquals("Sampo Cap Bambang", product.getProductName());
 
         product.setProductName("Sigma Cap Alpha");
         productRepository.update(product);
