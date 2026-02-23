@@ -3,6 +3,10 @@ name: pmd.yml
 on:
   push:
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   test:
     name: run analysis code using pmd
