@@ -30,9 +30,9 @@ class ProductRepositoryTest {
         productRepository.create(product);
 
         product1 = new Product();
-        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product1.setProductName("Sampo Cap Bambang");
-        product1.setProductQuantity(100);
+        product1.setProductId("eb558e9f-1c39-460e-9990-71af6af63bd6");
+        product1.setProductName("Sampo Cap Acid");
+        product1.setProductQuantity(500);
         productRepository.create(product1);
 
         product2 = new Product();
@@ -64,6 +64,9 @@ class ProductRepositoryTest {
     @Test
     void testFindAllIfEmpty() {
         Iterator<Product> productIterator = productRepository.findAll();
+        productRepository.deleteById(product.getProductId());
+        productRepository.deleteById(product1.getProductId());
+        productRepository.deleteById(product2.getProductId());
         assertFalse(productIterator.hasNext());
     }
 
@@ -91,7 +94,6 @@ class ProductRepositoryTest {
 
     @Test
     void testDeleteProduct() {
-
         productRepository.deleteById(product.getProductId());
         Product getProductFromRepo = productRepository.findProductById(product.getProductId());
         assertNull(getProductFromRepo);
