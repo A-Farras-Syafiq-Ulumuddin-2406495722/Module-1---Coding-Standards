@@ -26,5 +26,17 @@ dicek menggunakan unit-test.
 
 ### Note for Code Coverage
 - 22:08 14/02/2026 → Coverage at 46%
-- 
+
+### List of Code Quality Issues
+- 7x issue related to unit test having too many assert (fixed)
+- 3x issue related to unit test should be package-private (fixed)
+- 2x issue related to duplicate literals
+- 1x issue related to unit test does not has assert 
+
+Issue yang diberikan dengan menggunakan tools PMD ini sebagian besar
+berada di unit test maka rencananya:
+- Untuk unit test yang assert nya banyak, diperbagi lagi sehingga tiap unit test hanya satu assert
+- Unit test tidak memiliki assert, tambahkan assert
+- Untuk yang difix menjadi package-private, bagian public di nama class nya dihapuskan
+
 
