@@ -22,6 +22,7 @@ jobs:
       - uses: pmd/pmd-github-action@v2
         with:
           rulesets: 'ruleset.xml'
+          analyzeModifiedFilesOnly: false
       - uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: pmd-report.sarif
