@@ -51,4 +51,12 @@ berada di unit test maka rencananya:
 
 ### CI/CD
 
+Yes, GitHub Actions (/pipeline) yang sudah diberikan jobsnya telah memenuhi definis CI/CD.
 
+Misal dari CI, ketika aku melakukan push ataupun pull request, pipeline
+akan menjalankan berbagai tes sebagai cek kode agar bisa menemukan kejanggalan
+sebelum dimasukkan ke branch utama.
+
+Karena repo ini sudah dihubungkan dengan PaaS sehingga terjadi
+deployment, maka setiap perubahan branch utama akan otomatis melakukan
+build Docker. Dengan ini CD sudah terpenuhi perannya.
