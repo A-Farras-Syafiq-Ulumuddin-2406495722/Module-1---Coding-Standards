@@ -35,6 +35,7 @@ dicek menggunakan unit-test.
 
 ### Note for Code Coverage
 - 22:08 14/02/2026 → Coverage at 46%
+- 20:52 24/02/2026 → Coverage at 100%
 
 ### List of Code Quality Issues
 - 7x issue related to unit test having too many assert (fixed)
@@ -49,3 +50,5 @@ berada di unit test maka rencananya:
 - Untuk yang issue package-private, bagian public di nama class nya dihapuskan
 
 ### CI/CD
+
+
