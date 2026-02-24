@@ -98,4 +98,49 @@ class ProductRepositoryTest {
         Product getProductFromRepo = productRepository.findProductById(product.getProductId());
         assertNull(getProductFromRepo);
     }
+
+    @Test
+    void testFindProductByIDNull() {
+        assertNull(productRepository.findProductById("abc"));
+    }
+
+    @Test
+    void testFindProductByIDNullTwo() {
+        assertNull(productRepository.findProductById(null));
+    }
+
+    @Test
+    void testUpdateProductNull() {
+        Product productX = new Product();
+        productX.setProductId("eb558e9f");
+        productX.setProductName("Sampo");
+        productX.setProductQuantity(1);
+
+        assertNull(productRepository.update(productX));
+    }
+
+    @Test
+    void testDeleteProductBasedNull() {
+        productRepository.deleteById(null);
+    }
+
+    @Test
+    void testDeleteProductBasedEmptyRepo() {
+        productRepository.deleteById(product.getProductId());
+        productRepository.deleteById(product1.getProductId());
+        productRepository.deleteById(product2.getProductId());
+        productRepository.deleteById("abc");
+    }
+
+    @Test
+    void testDeleteProductNotInRepo() {
+        Product productX = new Product();
+        productX.setProductId("eb558e9f");
+        productX.setProductName("Sampo");
+        productX.setProductQuantity(1);
+        productRepository.create(productX);
+
+        productRepository.deleteById("123123");
+    }
+
 }
