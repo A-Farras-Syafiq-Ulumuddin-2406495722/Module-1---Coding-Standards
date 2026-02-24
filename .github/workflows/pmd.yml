@@ -1,0 +1,28 @@
+name: pmd.yml
+
+on:
+  push:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  test:
+    name: run analysis code using pmd
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+      - uses: pmd/pmd-github-action@v2
+        with:
+          rulesets: 'ruleset.xml'
+          analyzeModifiedFilesOnly: false
+      - uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: pmd-report.sarif

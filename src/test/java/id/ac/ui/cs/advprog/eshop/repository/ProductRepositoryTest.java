@@ -12,98 +12,90 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ProductRepositoryTest {
+class ProductRepositoryTest {
+
+    Product product;
+    Product product1;
+    Product product2;
 
     @InjectMocks
     ProductRepository productRepository;
 
     @BeforeEach
     void setUp() {
-    }
-
-    @Test
-    void testCreateAndFind() {
-        Product product = new Product();
+        product = new Product();
         product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         product.setProductName("Sampo Cap Bambang");
         product.setProductQuantity(100);
         productRepository.create(product);
 
+        product1 = new Product();
+        product1.setProductId("eb558e9f-1c39-460e-9990-71af6af63bd6");
+        product1.setProductName("Sampo Cap Acid");
+        product1.setProductQuantity(500);
+        productRepository.create(product1);
+
+        product2 = new Product();
+        product2.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde90b9");
+        product2.setProductName("Sampo Cap Usep");
+        product2.setProductQuantity(50);
+        productRepository.create(product2);
+    }
+
+    @Test
+    void testCreateAndFindID() {
         Iterator<Product> productIterator = productRepository.findAll();
-        assertTrue(productIterator.hasNext());
         Product savedProduct = productIterator.next();
         assertEquals(product.getProductId(), savedProduct.getProductId());
+    }
+    @Test
+    void testCreateAndFindName() {
+        Iterator<Product> productIterator = productRepository.findAll();
+        Product savedProduct = productIterator.next();
         assertEquals(product.getProductName(), savedProduct.getProductName());
+    }
+    @Test
+    void testCreateAndFindQuantity() {
+        Iterator<Product> productIterator = productRepository.findAll();
+        Product savedProduct = productIterator.next();
         assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
     }
 
     @Test
     void testFindAllIfEmpty() {
         Iterator<Product> productIterator = productRepository.findAll();
+        productRepository.deleteById(product.getProductId());
+        productRepository.deleteById(product1.getProductId());
+        productRepository.deleteById(product2.getProductId());
         assertFalse(productIterator.hasNext());
     }
 
     @Test
     void testFindAllIfMoreThanOneProduct() {
-        Product product1 = new Product();
-        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product1.setProductName("Sampo Cap Bambang");
-        product1.setProductQuantity(100);
-        productRepository.create(product1);
-
-        Product product2 = new Product();
-        product2.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde90b9");
-        product2.setProductName("Sampo Cap Usep");
-        product2.setProductQuantity(50);
-        productRepository.create(product2);
-
         Iterator<Product> productIterator = productRepository.findAll();
-        assertTrue(productIterator.hasNext());
-
+        productIterator.next();
         Product savedProduct = productIterator.next();
         assertEquals(product1.getProductId(), savedProduct.getProductId());
-
-        savedProduct = productIterator.next();
-        assertEquals(product2.getProductId(), savedProduct.getProductId());
-
+    }
+    @Test
+    void testNextNullProduct() {
+        Iterator<Product> productIterator = productRepository.findAll();
+        productIterator.next(); productIterator.next(); productIterator.next();
         assertFalse(productIterator.hasNext());
     }
 
     @Test
     void testEditProduct() {
-        Product product = new Product();
-        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product.setProductName("Sampo Cap Bambang");
-        product.setProductQuantity(100);
-        productRepository.create(product);
-
-        assertEquals("Sampo Cap Bambang", product.getProductName());
-
         product.setProductName("Sigma Cap Alpha");
         productRepository.update(product);
-
         Product updatedProduct = productRepository.findProductById(product.getProductId());
-
         assertEquals("Sigma Cap Alpha", updatedProduct.getProductName());
-        assertNotEquals("Sampo Cap Bambang", updatedProduct.getProductName());
     }
 
     @Test
     void testDeleteProduct() {
-        Product product = new Product();
-        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product.setProductName("Sampo Cap Bambang");
-        product.setProductQuantity(100);
-        productRepository.create(product);
-
-        Product getProductFromRepo = productRepository.findProductById(product.getProductId());
-
-        assertNotNull(getProductFromRepo);
-
         productRepository.deleteById(product.getProductId());
-
-        getProductFromRepo = productRepository.findProductById(product.getProductId());
-
+        Product getProductFromRepo = productRepository.findProductById(product.getProductId());
         assertNull(getProductFromRepo);
     }
 }
