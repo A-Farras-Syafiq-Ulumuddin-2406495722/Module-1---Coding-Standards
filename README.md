@@ -37,6 +37,6 @@ Issue yang diberikan dengan menggunakan tools PMD ini sebagian besar
 berada di unit test maka rencananya:
 - Untuk unit test yang assert nya banyak, diperbagi lagi sehingga tiap unit test hanya satu assert
 - Unit test tidak memiliki assert, tambahkan assert
-- Untuk yang difix menjadi package-private, bagian public di nama class nya dihapuskan
+- Untuk yang issue package-private, bagian public di nama class nya dihapuskan
 
-
+### CI/CD
