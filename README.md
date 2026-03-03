@@ -60,3 +60,31 @@ sebelum dimasukkan ke branch utama.
 Karena repo ini sudah dihubungkan dengan PaaS sehingga terjadi
 deployment, maka setiap perubahan branch utama akan otomatis melakukan
 build Docker. Dengan ini CD sudah terpenuhi perannya.
+
+# Module 3
+
+### SOLID Principle Implemented
+- SRP
+Sebelumnya ProductController.java memiliki dua class yaitu ProductController & CarController.
+Lalu dibagi dimana tiap controller punya kelas sendiri maka terdapat ProductController.java & CarControll.java di package Controller.
+- ISP
+Pada package Service, sebelumnya satu interface class menanggung create,update,delete,findAll, dan findById.
+Kemudian dibagi berdasarkan CRUD dan Searching.
+- DIP
+Pada package Service, method CarService & ProductService sangat mirip hanya beda implementasi.
+Oleh karena itu, interface disatukan menjadi ServiceCRUD & ServiceSearch yang diimplementasi di
+CarServiceCRUDImpl, CarServiceSearchImpl, ProductServiceCRUDImpl, ProductServiceSearchImpl.
+
+### Advantages of SOLID implementation
+Salah satu contoh implementasi SOLID ini berupa SRP yang berada di package Controller.
+Sebelumnya, semua jenis-jenis model controller disatukan di file yang sama. Ini membuat
+kelas yang panjang sehingga melawan hukum SRP dan membuat kode menjadi bau. Dengan
+membaginya controller dengan file masing-masing, kode yang dibaca tidak akan memberatkan 
+pada programmer yang akan melihatnya.
+
+### Disadvantages of not applying SOLID 
+Adanya SOLID disebabkan programmer membuat kodenya tidak efisien, kemungkinan ada bug, sulit dibaca, dan lain-lain.
+
+Sebuah project pastinya akan selalu berkembang sehingga kode yang dibuat akan menjadi kompleks.
+Kompleks ini akan menyulitkan programmer di masa yang akan datang sehingga kode akan sulit di maintain.
+Jika sulit di maintain, selama waktu berjalan, programmer akan sangat merasa terbebankan.

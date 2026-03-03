@@ -10,16 +10,10 @@ import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceSearchImpl implements ServiceSearch<Product> {
 
     @Autowired
     private ProductRepository productRepository;
-
-    @Override
-    public Product create(Product product) {
-        productRepository.create(product);
-        return product;
-    }
 
     @Override
     public List<Product> findAll() {
@@ -30,18 +24,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product updatedProduct) {
-        productRepository.update(updatedProduct);
-        return updatedProduct;
-    }
-
-    @Override
-    public Product findProductById(String id) {
+    public Product findById(String id) {
         return productRepository.findProductById(id);
     }
 
-    @Override
-    public void deleteById(String id) {
-        productRepository.deleteById(id);
-    }
 }
