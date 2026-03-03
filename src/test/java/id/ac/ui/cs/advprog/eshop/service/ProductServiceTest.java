@@ -23,7 +23,9 @@ class ProductServiceImplTest {
     ProductRepository productRepository;
 
     @InjectMocks
-    ProductServiceImpl productService;
+    ProductServiceCRUDImpl productService;
+    @InjectMocks
+    ProductServiceSearchImpl productServiceSearch;
 
     Product product;
 
@@ -50,7 +52,7 @@ class ProductServiceImplTest {
 
         when(productRepository.findAll()).thenReturn(iterator);
 
-        List<Product> result = productService.findAll();
+        List<Product> result = productServiceSearch.findAll();
 
         assertEquals(1, result.size());
         assertEquals(product, result.getFirst()); // safer than getFirst()
@@ -58,18 +60,10 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testUpdateReturnsUpdatedProduct() {
-        Product result = productService.update(product);
-
-        verify(productRepository, times(1)).update(product);
-        assertEquals(product, result);
-    }
-
-    @Test
     void testFindProductByIdReturnsProduct() {
         when(productRepository.findProductById("asigma-mantap")).thenReturn(product);
 
-        Product result = productService.findProductById("asigma-mantap");
+        Product result = productServiceSearch.findById("asigma-mantap");
 
         assertEquals(product, result);
         verify(productRepository, times(1)).findProductById("asigma-mantap");

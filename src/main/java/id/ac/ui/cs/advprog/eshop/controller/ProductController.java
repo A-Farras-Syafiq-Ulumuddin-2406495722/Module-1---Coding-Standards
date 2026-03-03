@@ -1,10 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
-import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.model.Product;
-import id.ac.ui.cs.advprog.eshop.service.CarService;
-import id.ac.ui.cs.advprog.eshop.service.CarServiceImpl;
-import id.ac.ui.cs.advprog.eshop.service.ProductService;
+import id.ac.ui.cs.advprog.eshop.service.ServiceSearch;
+import id.ac.ui.cs.advprog.eshop.service.ServiceCRUD;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +17,11 @@ import java.util.UUID;
 public class ProductController {
 
     @Autowired
-    private ProductService service;
+    private ServiceSearch<Product> serviceSearch;
+
+    @Autowired
+    private ServiceCRUD<Product> service;
+
 
     @GetMapping("/create")
     public String createProductPage(Model model) {
@@ -39,14 +41,14 @@ public class ProductController {
 
     @GetMapping("/list")
     public String productListPage(Model model) {
-        List<Product> allProducts = service.findAll();
+        List<Product> allProducts = serviceSearch.findAll();
         model.addAttribute("products", allProducts);
         return "ProductList";
     }
 
     @GetMapping("/edit/{id}")
     public String editProductPage(@PathVariable String id, Model model) {
-        Product product = service.findProductById(id);
+        Product product = serviceSearch.findById(id);
 
         if (product == null) {
             return "redirect:/product/list";
@@ -58,7 +60,7 @@ public class ProductController {
 
     @PostMapping("/edit")
     public String editProductPost(@ModelAttribute Product product) {
-        service.update(product);
+        service.update(product.getProductId(),product);
         return "redirect:/product/list";
     }
 

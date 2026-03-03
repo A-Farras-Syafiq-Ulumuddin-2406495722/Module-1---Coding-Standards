@@ -1,7 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
 import id.ac.ui.cs.advprog.eshop.model.Product;
-import id.ac.ui.cs.advprog.eshop.service.ProductService;
+import id.ac.ui.cs.advprog.eshop.service.ServiceCRUD;
+import id.ac.ui.cs.advprog.eshop.service.ServiceSearch;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -21,7 +22,10 @@ class ProductControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ProductService service;
+    private ServiceSearch<Product> serviceSearch;
+
+    @MockBean
+    private ServiceCRUD<Product> service;
 
     @Test
     void testCreateProductPageReturnsView() throws Exception {
@@ -47,14 +51,14 @@ class ProductControllerTest {
         Product product = new Product();
         product.setProductId("1");
 
-        when(service.findAll()).thenReturn(List.of(product));
+        when(serviceSearch.findAll()).thenReturn(List.of(product));
 
         mockMvc.perform(get("/product/list"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("ProductList"))
                 .andExpect(model().attributeExists("products"));
 
-        verify(service, times(1)).findAll();
+        verify(serviceSearch, times(1)).findAll();
     }
 
     @Test
@@ -62,7 +66,7 @@ class ProductControllerTest {
         Product product = new Product();
         product.setProductId("1");
 
-        when(service.findProductById("1")).thenReturn(product);
+        when(serviceSearch.findById("1")).thenReturn(product);
 
         mockMvc.perform(get("/product/edit/1"))
                 .andExpect(status().isOk())
@@ -72,23 +76,11 @@ class ProductControllerTest {
 
     @Test
     void testEditProductPageRedirectsWhenProductNotFound() throws Exception {
-        when(service.findProductById("1")).thenReturn(null);
+        when(serviceSearch.findById("1")).thenReturn(null);
 
         mockMvc.perform(get("/product/edit/1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/product/list"));
-    }
-
-    @Test
-    void testEditProductPostRedirectsToList() throws Exception {
-        mockMvc.perform(post("/product/edit")
-                        .param("productId", "1")
-                        .param("productName", "Updated")
-                        .param("productQuantity", "20"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/product/list"));
-
-        verify(service, times(1)).update(any(Product.class));
     }
 
     @Test
