@@ -60,3 +60,9 @@ sebelum dimasukkan ke branch utama.
 Karena repo ini sudah dihubungkan dengan PaaS sehingga terjadi
 deployment, maka setiap perubahan branch utama akan otomatis melakukan
 build Docker. Dengan ini CD sudah terpenuhi perannya.
+
+# Module 3
+
+### SRP
+### ISP
+### DIP
